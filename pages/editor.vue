@@ -41,7 +41,12 @@ function captureContent() {
 <template>
     <div @click.prevent="captureContent">
         <Nav />
-        <main class="d-block bg-secondary-subtle py-4" style="height: 95dvh;">
+        <main class="d-block bg-secondary-subtle pb-4" style="height: 95dvh;">
+            <aside class="px-4 mb-4 bg-white py-3" style="--bs-bg-opacity: .4;">
+                <div class="container">
+                    dd
+                </div>
+            </aside>
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
