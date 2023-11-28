@@ -5,15 +5,16 @@ import html2canvas from 'html2canvas';
 
 const route = useRoute()
 const editor = ref(ClassicEditor)
-const editorData = ref('<h2>Halo Ini Adalah Konten Starter.</h2><p>Edit Saya untuk mulai membuat Slide.</p><p><br data-cke-filler="true"></p><p>Quotes bijak:</p><blockquote><p>Jangan Pernah mengulangi kesalahan yang sama, karena masih banyak kesalahan yang belum dicoba.</p><p><i><strong>~ Calon Bapakmu</strong></i></p></blockquote><figure class="media ck-widget ck-widget_selected" contenteditable="false"><div class="ck-media__wrapper" data-oembed-url="https://www.youtube.com/watch?v=0yW7w8F2TVA"><div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/0yW7w8F2TVA" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></div></div><div class="ck ck-reset_all ck-widget__type-around"><div class="ck ck-widget__type-around__button ck-widget__type-around__button_before" title="Insert paragraph before block" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 8"><path d="M9.055.263v3.972h-6.77M1 4.216l2-2.038m-2 2 2 2.038"></path></svg></div><div class="ck ck-widget__type-around__button ck-widget__type-around__button_after" title="Insert paragraph after block" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 8"><path d="M9.055.263v3.972h-6.77M1 4.216l2-2.038m-2 2 2 2.038"></path></svg></div><div class="ck ck-widget__type-around__fake-caret"></div></div></figure>')
+const starterData = ref('<h2>Halo Ini Adalah Konten Starter.</h2><p>Edit Saya untuk mulai membuat Slide.</p><p><br data-cke-filler="true"></p><p>Quotes bijak:</p><blockquote><p>Jangan Pernah mengulangi kesalahan yang sama, karena masih banyak kesalahan yang belum dicoba.</p><p><i><strong>~ Calon Bapakmu</strong></i></p></blockquote><figure class="media ck-widget ck-widget_selected" contenteditable="false"><div class="ck-media__wrapper" data-oembed-url="https://www.youtube.com/watch?v=0yW7w8F2TVA"><div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/0yW7w8F2TVA" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></div></div><div class="ck ck-reset_all ck-widget__type-around"><div class="ck ck-widget__type-around__button ck-widget__type-around__button_before" title="Insert paragraph before block" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 8"><path d="M9.055.263v3.972h-6.77M1 4.216l2-2.038m-2 2 2 2.038"></path></svg></div><div class="ck ck-widget__type-around__button ck-widget__type-around__button_after" title="Insert paragraph after block" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 8"><path d="M9.055.263v3.972h-6.77M1 4.216l2-2.038m-2 2 2 2.038"></path></svg></div><div class="ck ck-widget__type-around__fake-caret"></div></div></figure>')
 const editorConfig = {}
 const activeSlideIndex = ref(-1);
+const currentIndex = ref(0)
 const contentData = ref([
     {
         id: 1,
         slug: 'draft-1',
         title: '1 konten',
-        content: 'new slide, change me!'
+        content: starterData
     }
 ])
 
@@ -25,9 +26,6 @@ useSeoMeta({
 const ckeditor = CKEditor.component;
 const apiKey = "6563dc5f4cc9c6d83d49d411"
 
-const updateEditorData = (event: any, editor: any) => {
-    editorData.value = editor.getData();
-};
 
 // function captureContent() {
 //     const content = document.querySelector(".ck-editor__main") as HTMLElement;
@@ -52,8 +50,8 @@ const updateEditorData = (event: any, editor: any) => {
 
 function changeContent(data: any[],id: number) {
     const newContent = data[id].content;
-    editorData.value = newContent;
-    activeSlideIndex.value = id
+    contentData.value[id].content = newContent;
+    activeSlideIndex.value = currentIndex.value = id
 }
 
 function addSlide() {
@@ -95,7 +93,7 @@ function removeSlide(index: number) {
                     </div>
                     <div class="col-md-9">
                         <div id="main-editor" class="editor-canvas">
-                            <ckeditor :editor="editor" v-model="editorData" :data="editorData" :config="editorConfig" />
+                            <ckeditor :editor="editor" v-model="contentData[currentIndex].content" :config="editorConfig" />
                         </div>
                         <div class="d-block mt-4">
                             <div class="form-floating">
