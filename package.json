@@ -11,12 +11,15 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@vueuse/core": "^10.6.1",
+    "@vueuse/nuxt": "^10.6.1",
     "nuxt": "^3.8.2",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^40.1.0",
+    "@ckeditor/ckeditor5-upload": "^40.1.0",
     "@ckeditor/ckeditor5-vue": "^5.1.0",
     "@popperjs/core": "^2.11.8",
     "@tabler/icons-vue": "^2.42.0",
